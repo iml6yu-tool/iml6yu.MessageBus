@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>MsgBus</Title>
-    <Version>0.0.1-b230616002</Version>
+    <Version>1.0.0-release230626001</Version>
     <Authors>iml6yu</Authors>
     <Company>iml6yu</Company>
     <Description>消息总线，用于单机程序内的各个类之间的数据消息传递，降低各个类之间的耦合度</Description>

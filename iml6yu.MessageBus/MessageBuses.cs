@@ -51,8 +51,9 @@ namespace iml6yu.MessageBus
         /// 订阅一个频道
         /// </summary>
         /// <param name="channel"></param>
+        /// <param name="callback">回调函数</param>
         /// <returns></returns>
-        public static ISubscriber<T> Subscrib<T>(MessageChannel channel)
+        public static ISubscriber<T> Subscrib<T>(MessageChannel channel, Action<MessageChannel, MessageBusArges<T>> callback = null)
         {
             var sub = new DefaultSubscriber<T>();
             var key = (channel, messageType: typeof(T));
@@ -60,6 +61,8 @@ namespace iml6yu.MessageBus
                 if (!subscribers.TryAdd(key, new ConcurrentBag<dynamic>()))
                     throw new Exception($"监听通道({key.channel}:{key.messageType})失败！");
             subscribers[key].Add(sub);
+            if (callback != null)
+                sub.OnNoticed += callback;
             return sub;
         }
 
@@ -67,19 +70,21 @@ namespace iml6yu.MessageBus
         /// 订阅一个通道
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="callback">回调函数</param>
         /// <returns></returns>
-        public static ISubscriber<T> Subscrib<T>()
+        public static ISubscriber<T> Subscrib<T>(Action<MessageChannel, MessageBusArges<T>> callback = null)
         {
-            return Subscrib<T>(CreateChannel(typeof(T).FullName));
+            return Subscrib<T>(CreateChannel(typeof(T).FullName), callback);
         }
         /// <summary>
         /// 订阅一个频道
         /// </summary>
         /// <param name="channel"></param>
+        /// <param name="callback">回调函数</param>
         /// <returns></returns>
-        public static ISubscriber<T> Subscrib<T>(string channel)
+        public static ISubscriber<T> Subscrib<T>(string channel, Action<MessageChannel, MessageBusArges<T>> callback = null)
         {
-            return Subscrib<T>(CreateChannel(channel));
+            return Subscrib<T>(CreateChannel(channel), callback);
         }
 
         /// <summary>
@@ -152,15 +157,6 @@ namespace iml6yu.MessageBus
         }
 
         /// <summary>
-        /// 开启当前时间调度（默认发送消息后依然会开启当前调度）
-        /// </summary>
-        public static void StartMessageBusDispatch()
-        {
-            if (threadBusDistapch.ThreadState == ThreadState.Unstarted)
-                threadBusDistapch.Start();
-        }
-
-        /// <summary>
         /// 发布消息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -169,6 +165,17 @@ namespace iml6yu.MessageBus
         {
             Publish<T>(CreateChannel(typeof(T).FullName), message);
         }
+
+        /// <summary>
+        /// 开启当前时间调度（默认发送消息后依然会开启当前调度）
+        /// </summary>
+        public static void StartMessageBusDispatch()
+        {
+            if (threadBusDistapch.ThreadState == ThreadState.Unstarted)
+                threadBusDistapch.Start();
+        }
+
+
 
         /// <summary>
         /// 终止当前BUS

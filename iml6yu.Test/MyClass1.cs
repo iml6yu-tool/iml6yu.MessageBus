@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iml6yu.Test
 {
-    internal class MyClass1
+    public class MyClass1
     {
     }
 }
