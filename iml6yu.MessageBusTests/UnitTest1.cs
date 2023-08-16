@@ -66,7 +66,22 @@ public class UnitTest1
 
     public class P
     {
+        //(int,string) x = Tuple.Create(24,"");
 
+
+        public Tuple<int, string, bool> A()
+        {
+            var p = (24, "", true);// (24:age,"zs":name,true:isstudent);
+            //(int, string) x = Tuple.Create(24, "zs");
+            //(int, string) x1 = ValueTuple.Create(24, "zs");
+
+            var person = (age: 24, name: "张三");
+            person.age = 3;
+
+            var person1 = Tuple.Create(24, "张三");
+            var x1= person1.Item1;
+            return null;
+        }
     }
 
     public class TT<T>
