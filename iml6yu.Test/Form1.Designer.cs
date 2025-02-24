@@ -34,25 +34,26 @@
             btnOpenNewWin = new Button();
             btnSendMessage = new Button();
             btnSendObj = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(267, 72);
+            button1.Location = new Point(55, 72);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(185, 23);
             button1.TabIndex = 0;
-            button1.Text = "开启线程";
+            button1.Text = "ResetEvent Set";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(374, 72);
+            button2.Location = new Point(274, 72);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(175, 23);
             button2.TabIndex = 1;
-            button2.Text = "继续线程";
+            button2.Text = "Get Thread State";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -60,9 +61,9 @@
             // 
             button3.Location = new Point(487, 72);
             button3.Name = "button3";
-            button3.Size = new Size(75, 23);
+            button3.Size = new Size(181, 23);
             button3.TabIndex = 2;
-            button3.Text = "获取状态";
+            button3.Text = "Thread Start";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
@@ -96,11 +97,22 @@
             btnSendObj.UseVisualStyleBackColor = true;
             btnSendObj.Click += btnSendObj_Click;
             // 
+            // button4
+            // 
+            button4.Location = new Point(55, 125);
+            button4.Name = "button4";
+            button4.Size = new Size(185, 23);
+            button4.TabIndex = 6;
+            button4.Text = "ResetEvent ReSet";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button4);
             Controls.Add(btnSendObj);
             Controls.Add(btnSendMessage);
             Controls.Add(btnOpenNewWin);
@@ -120,5 +132,6 @@
         private Button btnOpenNewWin;
         private Button btnSendMessage;
         private Button btnSendObj;
+        private Button button4;
     }
 }

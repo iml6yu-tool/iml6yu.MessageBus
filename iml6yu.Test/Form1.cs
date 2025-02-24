@@ -42,13 +42,20 @@ namespace iml6yu.Test
         Thread t;
         Task task;
         AutoResetEvent resetEvent = new AutoResetEvent(false);
+        ManualResetEvent manualReset = new ManualResetEvent(false);
         private void Form1_Load(object? sender, EventArgs e)
         {
             t = new Thread(new ParameterizedThreadStart(o =>
             {
-                Debug.WriteLine("启动了");
-                resetEvent.WaitOne();
-                Debug.WriteLine("结束了");
+                for (int i = 0; i < 10; i++)
+                {
+                    Debug.WriteLine("启动了" + i);
+                    //resetEvent.WaitOne();
+                    manualReset.WaitOne();
+                    Debug.WriteLine("结束了" + i);
+                    Thread.Sleep(5000);
+                }
+
             }));
 
             //task = Task.Run(() =>
@@ -62,8 +69,10 @@ namespace iml6yu.Test
         private void button1_Click(object sender, EventArgs e)
         {
             Debug.WriteLine(t.ThreadState.ToString());
-            resetEvent.Set();
+            //resetEvent.Set();
+            manualReset.Set();
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -88,6 +97,11 @@ namespace iml6yu.Test
         private void btnSendObj_Click(object sender, EventArgs e)
         {
             MessageBuses.Publish(new MyClass1());
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            manualReset.Reset();
         }
     }
 }
